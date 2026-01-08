@@ -1,0 +1,15 @@
+.article {
+    background: white;
+    min-width:600px; //ширина коробки с задачами
+    border-radius: 20px; //изгибы
+    padding: 20px 55px;//отступы сверзу и по бокам
+
+&Title {
+    font-size: 40px;
+    margin-bottom: 0.3em;
+    text-align: center;
+}
+&Text{
+    text-align: center;
+}
+}
