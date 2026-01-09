@@ -6,17 +6,22 @@ import styles from './index.module.scss';
 export const App: React.FC=() => {
 //     App — React-компонент
 // React.FC — тип функционального компонента
-const[
-    tasks,
-    createTask,
-    updateTask,
-    removeTask
-]=useToDoStore(state=>[
-    state.tasks,
-    state.createTask,
-    state.updateTask,
-    state.removeTask,
-]);
+// const[
+//     tasks,
+//     createTask,
+//     updateTask,
+//     removeTask
+// ]=useToDoStore(state=>[
+//     state.tasks,
+//     state.createTask,
+//     state.updateTask,
+//     state.removeTask,
+// ]);
+const tasks = useToDoStore(state => state.tasks);
+const createTask = useToDoStore(state => state.createTask);
+const updateTask = useToDoStore(state => state.updateTask);
+const removeTask = useToDoStore(state => state.removeTask);
+
 
 // Что такое селектор
 // state => state.tasks
@@ -32,6 +37,7 @@ const[
 // Это селектор.
 // Ты говоришь:
 // «Дай мне из стора только вот это»
+console.log('App render');
     return(
         <article className={styles.article}>
             <h1 className={styles.articleTitle}> To Do List </h1>
