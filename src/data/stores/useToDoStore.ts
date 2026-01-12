@@ -5,10 +5,13 @@ import { generateId } from './helpers'
 /**
  * Описание одной задачи
  */
+type TaskStatus='to do' | 'in progress' | 'done';
 interface Task {
   id: string           // уникальный id задачи
   title: string        // текст задачи
-  createdAt: number    // время создания 
+  createdAt: number   
+//  время создания 
+  status:TaskStatus
 }
 
 /**
@@ -19,7 +22,8 @@ interface ToDoStore {
   tasks: Task[]                                // массив задач
   createTask: (title: string) => void          // добавить задачу(это тип функции)
   updateTask: (id: string, title: string) => void // изменить задачу
-  removeTask: (id: string) => void              // удалить задачу
+  removeTask: (id: string) => void     
+  changeStatus:(id:string, status:TaskStatus) => void         // удалить задачу
 }
 
 /**
@@ -51,8 +55,9 @@ export const useToDoStore = create<ToDoStore>()(
         const newTask: Task = {
           id: generateId(),     // уникальный id
           title,                // текст задачи
-          createdAt: Date.now() // текущее время
-        }
+          createdAt: Date.now(),
+          status:'to do', // текущее время
+        };
 
         /**
          * set обновляет состояние стора
@@ -86,7 +91,21 @@ export const useToDoStore = create<ToDoStore>()(
           tasks: get().tasks.filter(task => task.id !== id),
         })
       },
-    }),
+    changeStatus:(id,status)=>{
+        set({
+            tasks: get().tasks.map(task=>
+                // get() — это получить текущее состояние стора
+// 👉 .tasks — взять массив всех задач
+                task.id===id
+                ?{...task, status}
+//                 ...task → скопировать всю задачу
+// status → заменить ТОЛЬКО статус
+                :task
+            ),
+        })
+    },
+}),
+    
 
     /**
      * Настройки persist

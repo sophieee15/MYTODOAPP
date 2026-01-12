@@ -8,10 +8,16 @@ export const App: React.FC=() => {
 // React.FC — тип функционального компонента
 
 const tasks = useToDoStore(state => state.tasks); 
+const todoTasks = tasks.filter(task => task.status === 'to do')
+const inProgressTasks = tasks.filter(task => task.status === 'in progress')
+const doneTasks = tasks.filter(task => task.status === 'done')
+
 // Дай мне из хранилища массив задач
 const createTask = useToDoStore(state => state.createTask);
 const updateTask = useToDoStore(state => state.updateTask);
 const removeTask = useToDoStore(state => state.removeTask);
+const changeStatus = useToDoStore(state => state.changeStatus);
+
 // UseToDoStore -хук для доступа к zustand store
 // возвращает данные из него;
 // state => [...]
@@ -35,35 +41,55 @@ const removeTask = useToDoStore(state => state.removeTask);
             />
             </section>
             <section className={styles.articleSection}>
-                 {/* //список обновленных задач */}
-                {!tasks.length &&(
-                    <p className={styles.articleText}>There is no one task.</p>
-//                     Массив пустой → покажет «There is no one task»
-// Массив не пустой → ничего не покажет
-                )}
-{tasks.map((task)=>(
+  {!tasks.length && (
+    <p className={styles.articleText}>There is no one task.</p>
+  )}
+ <div className={styles.board}>
+    <div className={styles.column}>
+    <h2>Надо сделать</h2>
+    {todoTasks.map(task => (
+        <InputTask
+        key={task.id}
+        id={task.id}
+        title={task.title}
+        onDone={removeTask}
+        onEdited={updateTask}
+        onRemoved={removeTask}
+        onChangeStatus={changeStatus}
+        />
+    ))}
+    </div>
+
+<div className={styles.column}>
+  <h2>В работе</h2>
+  {inProgressTasks.map(task => (
     <InputTask
-//     <InputTask ... />
-// Это компонент React
-// Для каждой задачи в массиве мы создаём отдельный компонент <InputTask>
-    key={task.id}
-//     key — обязательный prop для элементов списка в React
-// React использует его, чтобы правильно обновлять/удалять элементы при ререндере
-    id={task.id}
-    title={task.title}
-    onDone={removeTask}
-    onEdited={updateTask}
-    onRemoved={removeTask}
-//     id и title → данные задачи, которые нужны компоненту <InputTask>
-// onDone, onEdited, onRemoved → функции, которые компонент вызывает, когда что-то происходит
+      key={task.id}
+      id={task.id}
+      title={task.title}
+      onDone={removeTask}
+      onEdited={updateTask}
+      onRemoved={removeTask}
+      onChangeStatus={changeStatus}
+    />
+  ))}
+  </div>
 
-/>
-))}
-                </section> 
-
-           
-              
-
-        </article>
-    );
+<div className={styles.column}>
+  <h2>Сделано</h2>
+  {doneTasks.map(task => (
+    <InputTask
+      key={task.id}
+      id={task.id}
+      title={task.title}
+      onDone={removeTask}
+      onEdited={updateTask}
+      onRemoved={removeTask}
+      onChangeStatus={changeStatus}
+    />
+  ))}
+  </div>
+  </div>
+</section>
+        </article>)
 }

@@ -3,6 +3,7 @@
     min-width:600px; //ширина коробки с задачами
     border-radius: 20px; //изгибы
     padding: 20px 55px;//отступы сверзу и по бокам
+    
 
 &Title {
     font-size: 40px;
@@ -13,3 +14,32 @@
     text-align: center;
 }
 }
+h2{
+    color: #3f72af ;
+    text-align: center;
+    font:2em/2.0'Roboto', sans-serif;
+}
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.column {
+  background: #f5f7fb;
+  padding: 16px;
+  border-radius: 10px;
+  min-height: 200px;
+}
+.column:hover {
+  background: #eaf0ff;
+  box-shadow: 0 4px 12px rgba(63, 114, 175, 0.25);
+}
+.task {
+  background: white;
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+ 

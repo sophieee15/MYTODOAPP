@@ -7,6 +7,7 @@ interface InputTaskProps{
     // функция при клике на галочку
     onEdited:(id:string,title:string)=>void;
     onRemoved:(id:string)=>void;
+    onChangeStatus:(id:string,status: 'to do' | 'in progress' | 'done')=>void;
 
     
 }
@@ -16,7 +17,9 @@ export const InputTask: React.FC<InputTaskProps>=({
     title,
     onDone,
     onEdited,
-    onRemoved
+    onRemoved,
+    onChangeStatus,
+
 })=>{
 //     InputPlus — имя компонента
 // React.FC<InputPlusProps> — тип компонента
@@ -110,7 +113,33 @@ useEffect(()=>{
 // в App это removeTask(id)
 // задача удаляется
             />
+            {/* <button
+            aria-label="ChangeStatus"
+            className={styles.inputTaskStatus}
+            onClick={()=>
+                onChangeStatus(id,'to do')}>
+                    {/* берем changeStatus из стора */}
+                    {/* Надо сделать 
+                </button> */} 
+                <button
+            aria-label="ChangeStatus"
+            className={`${styles.inputTaskStatus} ${styles.inProgress}`}
+            onClick={()=>
+                onChangeStatus(id,'in progress')}>
+                    {/* берем changeStatus из стора */}
+                    В работе 
+                </button>
+<button
+            aria-label="ChangeStatus"
+            // 
+            className={`${styles.inputTaskStatus} ${styles.done}`}
+            onClick={()=>
+                onChangeStatus(id,'done')}>
+                    {/* берем changeStatus из стора */}
+                    Сделано 
+                </button>
             </div>
+            
             )
         };
              
