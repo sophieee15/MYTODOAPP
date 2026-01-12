@@ -30,7 +30,12 @@ const [value,setValue]=useState(title);
 //     value — текст внутри input
 // setValue — меняет текст, когда пользователь печатает
 const editTitleInputRef=useRef<HTMLInputElement>(null);
+// ref — ссылка на input для редактирования заголовка
+// HTMLInputElement — говорим TS, что это именно input
+// null — потому что сначала input ещё не существует
 useEffect(()=>{
+    // / когда включается режим редактирования —
+    // // автоматически ставим курсор в input
     if(isEditMode){
         editTitleInputRef?.current?.focus();
     }
@@ -40,6 +45,7 @@ useEffect(()=>{
     return(
         <div className={styles.inputTask}>
             <label className={styles.inputTaskLabel}>
+                {/* Вся строка задачи */}
                 <input
                 type="checkbox"
                 disabled={isEditMode}

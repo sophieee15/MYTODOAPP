@@ -6,38 +6,18 @@ import styles from './index.module.scss';
 export const App: React.FC=() => {
 //     App — React-компонент
 // React.FC — тип функционального компонента
-// const[
-//     tasks,
-//     createTask,
-//     updateTask,
-//     removeTask
-// ]=useToDoStore(state=>[
-//     state.tasks,
-//     state.createTask,
-//     state.updateTask,
-//     state.removeTask,
-// ]);
-const tasks = useToDoStore(state => state.tasks);
+
+const tasks = useToDoStore(state => state.tasks); 
+// Дай мне из хранилища массив задач
 const createTask = useToDoStore(state => state.createTask);
 const updateTask = useToDoStore(state => state.updateTask);
 const removeTask = useToDoStore(state => state.removeTask);
-
-
-// Что такое селектор
-// state => state.tasks
-// Это функция, которую передаём в useToDoStore
-// Она говорит: «Мне из store нужен только этот кусок данных»
-// Например: state.tasks → массив задач
-
-    
-//         useToDoStore — это хук, который:
-// подписывает компонент на store
-// возвращает данные из него
+// UseToDoStore -хук для доступа к zustand store
+// возвращает данные из него;
 // state => [...]
 // Это селектор.
 // Ты говоришь:
 // «Дай мне из стора только вот это»
-console.log('App render');
     return(
         <article className={styles.article}>
             <h1 className={styles.articleTitle}> To Do List </h1>
@@ -53,7 +33,6 @@ console.log('App render');
                 }
             }}
             />
-            {/* // колбэк который вызывает функицю */}
             </section>
             <section className={styles.articleSection}>
                  {/* //список обновленных задач */}

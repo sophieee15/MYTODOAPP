@@ -8,7 +8,7 @@ import { generateId } from './helpers'
 interface Task {
   id: string           // уникальный id задачи
   title: string        // текст задачи
-  createdAt: number    // время создания (timestamp)
+  createdAt: number    // время создания 
 }
 
 /**
@@ -17,7 +17,7 @@ interface Task {
  */
 interface ToDoStore {
   tasks: Task[]                                // массив задач
-  createTask: (title: string) => void          // добавить задачу
+  createTask: (title: string) => void          // добавить задачу(это тип функции)
   updateTask: (id: string, title: string) => void // изменить задачу
   removeTask: (id: string) => void              // удалить задачу
 }
