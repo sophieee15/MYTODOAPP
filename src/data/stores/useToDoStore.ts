@@ -56,7 +56,7 @@ export const useToDoStore = create<ToDoStore>()(
           id: generateId(),     // уникальный id
           title,                // текст задачи
           createdAt: Date.now(),
-          status:'to do', // текущее время
+          status:'to do', 
         };
 
         /**

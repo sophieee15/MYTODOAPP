@@ -105,7 +105,7 @@ useEffect(()=>{
             aria-label="Remove"
             className={styles.inputTaskRemove}
             onClick={()=>{
-                if(confirm('Are you sure?')){
+                if(confirm('Вы уверены, что хотите удалить задачу?')){
                 onRemoved(id);
                 }
             }}
@@ -138,8 +138,6 @@ useEffect(()=>{
                     {/* берем changeStatus из стора */}
                     Сделано 
                 </button>
-            </div>
-            
-            )
-        };
-             
+                </div>
+    )  
+}

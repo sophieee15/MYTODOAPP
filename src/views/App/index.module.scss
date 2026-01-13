@@ -42,4 +42,21 @@ h2{
   margin-bottom: 8px;
 }
 
- 
+.sortButton {
+  padding: 8px 14px;
+
+  font-size: 14px;
+  margin-bottom: 10px;
+  background-color: #f5f7fa;
+  color: #3f72af;
+
+  border: 1px solid #dbe2ef;
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sortButton:hover {
+  background-color: #e7eef9;
+}
