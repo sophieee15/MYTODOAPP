@@ -19,10 +19,12 @@ interface Task {
  * (что в нём хранится и какие есть функции)
  */
 interface ToDoStore {
-  tasks: Task[]                                // массив задач
+  tasks: Task[]         
+  deletedTasks:Task []    // массив задач
   createTask: (title: string) => void          // добавить задачу(это тип функции)
   updateTask: (id: string, title: string) => void // изменить задачу
   removeTask: (id: string) => void     
+  restoreTask:(id:string)=>void
   changeStatus:(id:string, status:TaskStatus) => void         // удалить задачу
 }
 
@@ -47,6 +49,7 @@ export const useToDoStore = create<ToDoStore>()(
        * persist подставит их сам
        */
       tasks: [],
+      deletedTasks:[],
 
       /**
        * Создание новой задачи
@@ -87,10 +90,30 @@ export const useToDoStore = create<ToDoStore>()(
        * Удаление задачи
        */
       removeTask: (id) => {
+        const{tasks,deletedTasks}=get();
+        const taskToDelete=tasks.find(task=>task.id===id); 
+        // мы ищем задачу, у которой id совпадает с тем, что передали.
+        if(!taskToDelete){
+            return;
+        }
         set({
-          tasks: get().tasks.filter(task => task.id !== id),
-        })
+          tasks: tasks.filter(task=>task.id!==id),
+          deletedTasks:[taskToDelete, ...deletedTasks],
+        });
       },
+      restoreTask:(id)=>{
+        const{tasks,deletedTasks}=get();
+        const taskToRestore=deletedTasks.find(task=>task.id===id);
+//          ищем задачу, у которой id совпадает с тем, что передали.
+// Если нашли → сохраняем в taskToDelete.
+        if(!taskToRestore)
+          return;
+set({
+  tasks: [taskToRestore, ...tasks],
+  // создаёт новый список, в который попадают только те задачи, которые не равны id удаляемой задачи.
+  deletedTasks: deletedTasks.filter(task=>task.id!==id),
+});
+        },
     changeStatus:(id,status)=>{
         set({
             tasks: get().tasks.map(task=>
@@ -101,10 +124,10 @@ export const useToDoStore = create<ToDoStore>()(
 //                 ...task → скопировать всю задачу
 // status → заменить ТОЛЬКО статус
                 :task
-            ),
-        })
-    },
-}),
+             ),
+        });
+      },
+    }),
     
 
     /**
@@ -114,4 +137,4 @@ export const useToDoStore = create<ToDoStore>()(
       name: 'tasks-storage', // ключ в localStorage
     }
   )
-)
+);

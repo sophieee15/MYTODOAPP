@@ -3,6 +3,7 @@ import { useToDoStore } from '../../data/stores/useToDoStore';
 import { InputPlus } from '../components/InputPlus';
 import { InputTask } from '../components/InputTask';
 import styles from './index.module.scss';
+import { Button } from '@mui/material';
 
 export const App: React.FC = () => {
   // App — React-компонент 
@@ -13,6 +14,8 @@ export const App: React.FC = () => {
   const removeTask = useToDoStore(state => state.removeTask);
   const changeStatus = useToDoStore(state => state.changeStatus);
   const tasks = useToDoStore(state => state.tasks);
+  const deletedTasks=useToDoStore(state=>state.deletedTasks);
+  const restoreTask=useToDoStore(state=>state.restoreTask);
 
   const [sortType, setSortType] = React.useState<'date' | 'alphabet'>('date');
 // setSortType — функция, которая меняет sortType, когда пользователь нажимает кнопку.
@@ -37,7 +40,9 @@ export const App: React.FC = () => {
   const doneTasks = sortTasks(
     tasks.filter(task => task.status === 'done')
   );
-
+const [isTrashOpen, setIsTrashOpen] = React.useState(false);
+// isTrashOpen — true, если корзина открыта, false — скрыта.
+// setIsTrashOpen — функция для переключения состояния.
   return (
     <article className={styles.article}>
       <h1 className={styles.articleTitle}>To Do List</h1>
@@ -119,6 +124,41 @@ export const App: React.FC = () => {
           ))}
         </div>
       </div>
+      <section className={styles.TrashSection}>
+<h5
+  style={{ cursor: 'pointer' }} 
+  onClick={() => setIsTrashOpen(prev => !prev)}
+  // стрелочная функция, которая выполняется при клике.
+>
+  Корзина {isTrashOpen ? '▼' : '►'}
+</h5>
+
+{isTrashOpen && (
+  <div className={styles.TrashContent}>
+    {deletedTasks.length === 0 && <p>Корзина пуста</p>}
+    {deletedTasks.map(task => (
+      <div key={task.id} className={styles.deletedTask}>
+        {task.title}
+        {/* Выводим название задачи, которое хранится в объекте task */}
+        {/* Кнопка Material UI */}
+              <Button
+                aria-label="Restore"
+                variant="contained"
+                onClick={() => restoreTask(task.id)}
+                sx={{
+                  textTransform: 'none',       // без капс
+                  borderRadius: '5px',         // скругление
+                  padding: '6px 12px',         // отступы
+                  backgroundColor: '#9abee1ff',// твой цвет
+                  '&:hover': { backgroundColor: '#196fc5ff' }, // hover
+                }}
+              >
+                Восстановить
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
     </article>
-  );
-};
+  )}

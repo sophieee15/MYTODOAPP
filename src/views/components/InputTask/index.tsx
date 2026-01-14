@@ -1,5 +1,6 @@
 import React, {useState,useRef,useEffect} from 'react';
 import styles from './index.module.scss';
+import Button from '@mui/material/Button';
 interface InputTaskProps{
     id:string;
     title:string;
@@ -121,13 +122,13 @@ useEffect(()=>{
                     {/* берем changeStatus из стора */}
                     {/* Надо сделать 
                 </button> */} 
-                <button
+                {/* <button
             aria-label="ChangeStatus"
             className={`${styles.inputTaskStatus} ${styles.inProgress}`}
             onClick={()=>
                 onChangeStatus(id,'in progress')}>
                     {/* берем changeStatus из стора */}
-                    В работе 
+                    {/* В работе 
                 </button>
 <button
             aria-label="ChangeStatus"
@@ -136,8 +137,45 @@ useEffect(()=>{
             onClick={()=>
                 onChangeStatus(id,'done')}>
                     {/* берем changeStatus из стора */}
-                    Сделано 
+                    {/* Сделано 
                 </button>
-                </div>
-    )  
-}
+                </div> */} 
+                <div style={{ display: 'flex', gap: '8px' }}>
+  {/* Кнопка "В работе" */}
+  <Button
+    aria-label="ChangeStatus"
+    variant="contained"
+    onClick={() => onChangeStatus(id, 'in progress')}
+    sx={{
+      textTransform: 'none',       // убирает капс
+      borderRadius: '5px',         // твои скругления
+      padding: '6px 12px',   
+      backgroundColor: '#4e99e4ff',      // отступы
+      ...(status === 'in progress' && {
+        boxShadow: '0 0 0 2px #196fc5ff inset' // можно подсветить активную
+      })
+    }}
+  >
+    В работе
+  </Button>
+
+  {/* Кнопка "Сделано" */}
+  <Button
+    aria-label="ChangeStatus"
+    variant="contained"
+    onClick={() => onChangeStatus(id, 'done')}
+    sx={{
+      textTransform: 'none',
+      borderRadius: '5px',
+      padding: '6px 12px',
+      backgroundColor: '#9abee1ff',  
+      ...(status === 'done' && {
+        boxShadow: '0 0 0 2px #1976d2 inset' // подсветка активного
+      })
+    }}
+  >
+    Сделано
+  </Button>
+</div>
+</div>
+    )}

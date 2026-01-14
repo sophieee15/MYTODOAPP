@@ -69,32 +69,33 @@
   margin-top: 8px;
 }
 
-.inputTaskStatus {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #3f72af;
-  background: #f5f7fb;
-  color: #3f72af;
-  cursor: pointer;
-  font-size: 14px;
-  transition: opacity 0.3s;
+// .inputTaskStatus {
+//   padding: 6px 12px;
+//   border-radius: 6px;
+//   border: 1px solid #3f72af;
+//   background: #f5f7fb;
+//   color: #3f72af;
+//   cursor: pointer;
+//   font-size: 14px;
+//   transition: opacity 0.3s;
 
-    &:hover {
-      opacity: 0.7;
-    }
-}
+//     &:hover {
+//       opacity: 0.7;
+//     }
+// }
 
-/* Кнопка "В работе" */
-.inProgress {
-  width: 100px;
-  margin-left: 10px;
-}
+// /* Кнопка "В работе" */
+// .inProgress {
+//   width: 100px;
+//   margin-left: 10px;
+// }
 
-/* Кнопка "Сделано" */
-.done {
-  background: #3f72af;
-  color: #fff;
-  border-color: #3f72af;
-  width: 100px;
-}
+// /* Кнопка "Сделано" */
+// .done {
+//   background: #3f72af;
+//   color: #fff;
+//   border-color: #3f72af;
+//   width: 100px;
+// }
+// }
 }
